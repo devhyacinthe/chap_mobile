@@ -11,19 +11,19 @@ import 'package:http/http.dart';
 
 /// Watch apiProvider to make sure to have the latest authToken passed.
 
-final networkRepoProvider = StateProvider((ref) {
+final networkRepositoryProvider = StateProvider((ref) {
   final authToken = ref.watch(authTokenProvider);
-  return NetworkRepo(authToken: authToken);
+  return NetworkRepository(authToken: authToken);
 });
 
 /// Contains common methods required for client side APIs [GET, POST, PUT, DELETE].
 /// Pass the [url] from endpoints using [Endpoints] class.
 /// Every method has an optional parameter [requireAuth] default [true].
 /// Set [requireAuth] to [false] if [authToken] is Empty.
-class NetworkRepo {
+class NetworkRepository {
   final String? _authToken;
 
-  NetworkRepo({required String? authToken}) : _authToken = authToken;
+  NetworkRepository({required String? authToken}) : _authToken = authToken;
 
   FutureEither<Response> getRequest(
       {required String url, bool requireAuth = true}) async {
@@ -33,7 +33,7 @@ class NetworkRepo {
     };
     if (requireAuth) {
       if ((_authToken ?? '').isEmpty) {
-        return Left(Failure(message: FailureMessage.authTokenEmpty));
+        return Left(Failure(message: NetworkFailureMessage.authTokenEmpty));
       }
     }
     if (AppConfig.logHttp) {
@@ -46,7 +46,8 @@ class NetworkRepo {
       return Right(response);
     } catch (e, stktrc) {
       return Left(Failure(
-          message: FailureMessage.getRequestMessage, stackTrace: stktrc));
+          message: NetworkFailureMessage.getRequestMessage,
+          stackTrace: stktrc));
     }
   }
 
@@ -58,7 +59,7 @@ class NetworkRepo {
     };
     if (requireAuth) {
       if ((_authToken ?? '').isEmpty) {
-        return Left(Failure(message: FailureMessage.authTokenEmpty));
+        return Left(Failure(message: NetworkFailureMessage.authTokenEmpty));
       }
     }
     if (AppConfig.logHttp) {
@@ -73,7 +74,8 @@ class NetworkRepo {
       return Right(response);
     } catch (e, stktrc) {
       return Left(Failure(
-          message: FailureMessage.postRequestMessage, stackTrace: stktrc));
+          message: NetworkFailureMessage.postRequestMessage,
+          stackTrace: stktrc));
     }
   }
 
@@ -85,7 +87,7 @@ class NetworkRepo {
     };
     if (requireAuth) {
       if ((_authToken ?? '').isEmpty) {
-        return Left(Failure(message: FailureMessage.authTokenEmpty));
+        return Left(Failure(message: NetworkFailureMessage.authTokenEmpty));
       }
     }
     if (AppConfig.logHttp) {
@@ -103,7 +105,8 @@ class NetworkRepo {
       return Right(response);
     } catch (e, stktrc) {
       return Left(Failure(
-          message: FailureMessage.putRequestMessage, stackTrace: stktrc));
+          message: NetworkFailureMessage.putRequestMessage,
+          stackTrace: stktrc));
     }
   }
 
@@ -115,7 +118,7 @@ class NetworkRepo {
     };
     if (requireAuth) {
       if ((_authToken ?? '').isEmpty) {
-        return Left(Failure(message: FailureMessage.authTokenEmpty));
+        return Left(Failure(message: NetworkFailureMessage.authTokenEmpty));
       }
     }
     if (AppConfig.logHttp) {
@@ -130,7 +133,8 @@ class NetworkRepo {
       return Right(response);
     } catch (e, stktrc) {
       return Left(Failure(
-          message: FailureMessage.deleteRequestMessage, stackTrace: stktrc));
+          message: NetworkFailureMessage.deleteRequestMessage,
+          stackTrace: stktrc));
     }
   }
 }

@@ -8,6 +8,7 @@ class AppRouteName {
   static const String login = 'login';
   static const String home = 'home';
   static const String password = 'password';
+  static const String splash = 'splash';
 }
 
 class AppColor {
@@ -90,10 +91,20 @@ class AppSize {
 }
 
 class AppStrings {
-  static const appName = "Riverpod app template";
+  static const appName = "Chap";
+  static const welcomeTitle = "Bienvenue";
+  static const registerTitle = "Inscription";
+  static const registerSubTitle =
+      "Inscrivez vous en ajoutant les informations suivantes";
+  static const loginTitle = "Connexion";
+  static const loginSubTitle =
+      "Connectez vous à votre compte avec votre numéro de téléphone";
+  static const passwordTitle = "Vérification";
+  static const passwordSubTitle = "Entrez votre code pour vous connecter";
+  static const loginInfo = "Vous n'avez pas de compte?";
 }
 
-class FailureMessage {
+class NetworkFailureMessage {
   static const getRequestMessage = "GET REQUEST FAILED";
   static const postRequestMessage = "POST REQUEST FAILED";
   static const putRequestMessage = "PUT REQUEST FAILED";

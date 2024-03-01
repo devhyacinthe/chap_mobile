@@ -33,17 +33,18 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      firstName: map['firstName'] as String,
-      lastName: map['lastName'] as String,
-      phoneNumber: map['phoneNumber'] as String,
-      password: map['password'] as String,
+      firstName: map['firstName'] as String?,
+      lastName: map['lastName'] as String?,
+      phoneNumber: map['phoneNumber'] as String?,
+      password: map['password'] as String?,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory User.fromJson(String source) =>
-      User.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory User.fromJson(String source) {
+    return User.fromMap(json.decode(source) as Map<String, dynamic>);
+  }
 
   @override
   String toString() =>

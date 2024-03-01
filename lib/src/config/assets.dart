@@ -36,7 +36,7 @@ class IconAssets {
   const IconAssets._();
 
   /// Contains all the paths of icons used across the project.
-  static const _base = BasePaths.baseImagePath;
+  static const _base = BasePaths.baseIconPath;
 
   static const String arrow_left = "$_base/arrow-left.svg";
   static const String password = "$_base/key-square.svg";
