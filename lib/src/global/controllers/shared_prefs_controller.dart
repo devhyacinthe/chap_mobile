@@ -18,8 +18,8 @@ class SharedPrefsController {
     return _repo.getCookie();
   }
 
-  FutureVoid setToken({required String cookie}) async {
-    await _repo.setToken(cookie);
+  FutureVoid setToken({required String token}) async {
+    await _repo.setToken(token);
   }
 
   Future<User?> getUser() async {

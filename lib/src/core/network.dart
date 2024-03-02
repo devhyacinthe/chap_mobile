@@ -29,7 +29,7 @@ class NetworkRepository {
       {required String url, bool requireAuth = true}) async {
     final Map<String, String> requestHeaders = {
       "Content-Type": "application/json",
-      "Cookie": "token=$_authToken"
+      "Authorization": "Bearer $_authToken"
     };
     if (requireAuth) {
       if ((_authToken ?? '').isEmpty) {
@@ -55,7 +55,7 @@ class NetworkRepository {
       {required String url, dynamic body, bool requireAuth = true}) async {
     final Map<String, String> requestHeaders = {
       "Content-Type": "application/json",
-      "Cookie": "token=$_authToken"
+      "Authorization": "Bearer $_authToken"
     };
     if (requireAuth) {
       if ((_authToken ?? '').isEmpty) {
@@ -83,7 +83,7 @@ class NetworkRepository {
       {required String url, dynamic body, bool requireAuth = true}) async {
     final Map<String, String> requestHeaders = {
       "Content-Type": "application/json",
-      "Cookie": "token=$_authToken"
+      "Authorization": "Bearer $_authToken"
     };
     if (requireAuth) {
       if ((_authToken ?? '').isEmpty) {
@@ -114,7 +114,7 @@ class NetworkRepository {
       {required String url, dynamic body, bool requireAuth = true}) async {
     final Map<String, String> requestHeaders = {
       "Content-Type": "application/json",
-      "Cookie": "token=$_authToken"
+      "Authorization": "Bearer $_authToken"
     };
     if (requireAuth) {
       if ((_authToken ?? '').isEmpty) {
