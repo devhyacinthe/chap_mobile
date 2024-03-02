@@ -26,4 +26,10 @@ class InitController {
 
     await _ref.read(sharedPrefsControllerPovider).setToken(cookie: token);
   }
+
+  FutureVoid clearUserAndToken() async {
+    await _ref.read(sharedPrefsControllerPovider).clear();
+
+    await _ref.read(sharedPrefsControllerPovider).clear();
+  }
 }

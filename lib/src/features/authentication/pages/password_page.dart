@@ -1,4 +1,6 @@
 import 'package:chap_mobile/src/config/assets.dart';
+import 'package:chap_mobile/src/features/authentication/controllers/auth_controller.dart';
+import 'package:chap_mobile/src/models/user.dart';
 import 'package:chap_mobile/src/utils/constants.dart';
 import 'package:chap_mobile/src/utils/validator.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +61,7 @@ class PasswordPage extends ConsumerWidget with Validator {
                           controller: _passwordController,
                           length: 4,
                           defaultPinTheme: defaultPinTheme,
-                          autofocus: true,
+                          autofocus: false,
                         ),
                         const SizedBox(
                           height: 65,
@@ -68,35 +70,18 @@ class PasswordPage extends ConsumerWidget with Validator {
                             minWidth: double.infinity,
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                /*
                                 //concat phone number to togolese number
                                 String number = "+228${phoneNumber!}";
 
-                                //Verify if user phone Number already exists (from backend)
-                                var isExist = await ref
-                                    .read(userRepositoryProvider)
-                                    .phoneExist(number);
+                                User user = User(
+                                    firstName: "",
+                                    lastName: "",
+                                    password: _passwordController.text,
+                                    phoneNumber: number);
 
-                                if (isExist.response.data['isExist'] == true) {
-                                  try {
-                                    LoginUserModel user = LoginUserModel(
-                                        phoneNumber: number,
-                                        password: _passwordController.text);
-
-                                    ref
-                                        .read(userNotifierProvider.notifier)
-                                        .loginUser(user);
-
-                                    
-
-                                    context.pushNamed(AppRouteName.home);
-                                  } on DioException {
-                                    debugPrint("Mot de passe incorrect");
-                                  }
-                                } else {
-                                  debugPrint(number);
-                                  debugPrint("Le numéro n'existe pas!");
-                                }*/
+                                ref
+                                    .read(authenticationControllerProvider)
+                                    .login(context: context, user: user);
                               }
                             },
                             color: AppColor.primaryColor,
@@ -121,7 +106,7 @@ _buildAppBar(BuildContext context) {
       systemOverlayStyle:
           const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
       leading: IconButton(
-        onPressed: () => context.pop(),
+        onPressed: () => context.pushNamed(AppRouteName.login),
         icon: SvgPicture.asset(
           IconAssets.arrow_left,
           color: AppColor.backgroundTextColor,

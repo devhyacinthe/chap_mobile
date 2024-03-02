@@ -139,7 +139,7 @@ _buildAppBar(BuildContext context) {
       systemOverlayStyle:
           const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
       leading: IconButton(
-        onPressed: () => context.pop(),
+        onPressed: () => context.pushNamed(AppRouteName.welcome),
         icon: SvgPicture.asset(
           IconAssets.arrow_left,
           color: AppColor.backgroundTextColor,

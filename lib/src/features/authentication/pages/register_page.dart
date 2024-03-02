@@ -177,40 +177,14 @@ class RegisterPage extends ConsumerWidget with Validator {
                                   password: _passwordController.text,
                                 );
 
-                                await ref
+                                ref
                                     .read(authenticationControllerProvider)
-                                    .register(context: context, user: newUser);
+                                    .register(
+                                      context: context,
+                                      user: newUser,
+                                    );
 
                                 debugPrint('User created 🚀');
-
-                                /*
-                                //concat phone number to togolese number
-                                String phoneNumber =
-                                    "+228${_phoneNumberController.text}";
-
-                                //Verify if user phone Number already exists (from backend)
-                                var isExist = await ref
-                                    .read(userRepositoryProvider)
-                                    .phoneExist(phoneNumber);
-
-                                final newUser = User(
-                                  firstname: _firstnameController.text,
-                                  lastname: _lastnameController.text,
-                                  phoneNumber: phoneNumber,
-                                  password: _passwordController.text,
-                                );
-
-                                if (isExist.response.data['isExist'] == true) {
-                                  debugPrint("Phone Number Already exist 😲");
-                                } else {
-                                  await ref
-                                      .read(userNotifierProvider.notifier)
-                                      .registerUser(newUser);
-
-                                  debugPrint('User created 🚀');
-
-                                  context.pushNamed(AppRouteName.login);
-                                }*/
                               }
                             },
                             text: "Valider")
@@ -232,7 +206,7 @@ _buildAppBar(BuildContext context) {
       systemOverlayStyle:
           const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
       leading: IconButton(
-        onPressed: () => context.pop(),
+        onPressed: () => context.pushNamed(AppRouteName.welcome),
         icon: SvgPicture.asset(
           IconAssets.arrow_left,
           color: AppColor.backgroundTextColor,

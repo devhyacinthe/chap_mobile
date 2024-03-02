@@ -1,4 +1,3 @@
-import 'package:chap_mobile/src/core/core.dart';
 import 'package:chap_mobile/src/features/authentication/configurations/messages.dart';
 import 'package:chap_mobile/src/features/authentication/repositories/auth_repository.dart';
 import 'package:chap_mobile/src/global/controllers/init_controller.dart';
@@ -33,16 +32,101 @@ class AuthenticationController {
     return result.fold((failure) {
       if (context != null) {
         SnackBarService.showSnackBar(
-            context: context, message: FailureMessage.register);
+            duration: const Duration(seconds: 2),
+            context: context,
+            message: FailureMessage.register,
+            backgroundColor: AppColor.errorColor);
       }
       return userNull;
     }, (user) {
-      if (context != null) {
+      if (context != null && user.phoneNumber == "") {
+        SnackBarService.showSnackBar(
+            duration: const Duration(seconds: 2),
+            context: context,
+            message: FailureMessage.verifyPhoneNumber,
+            backgroundColor: AppColor.errorColor);
+        return user;
+      }
+      if (context != null && user.phoneNumber != "") {
         context.pushNamed(AppRouteName.login);
         SnackBarService.showSnackBar(
-            context: context, message: SuccessMessage.register);
+            duration: const Duration(seconds: 1),
+            context: context,
+            message: SuccessMessage.register,
+            backgroundColor: AppColor.successColor);
+        return user;
       }
       return user;
+    });
+  }
+
+  Future<String>? login({BuildContext? context, User? user}) async {
+    final result = await _repository.login(user!.phoneNumber, user.password);
+
+    return result.fold((failure) {
+      if (context != null) {
+        SnackBarService.showSnackBar(
+            duration: const Duration(seconds: 2),
+            context: context,
+            message: FailureMessage.login,
+            backgroundColor: AppColor.errorColor);
+      }
+      return "";
+    }, (token) {
+      if (context != null && token == AppStrings.passwordError) {
+        SnackBarService.showSnackBar(
+            duration: const Duration(seconds: 2),
+            context: context,
+            message: FailureMessage.login,
+            backgroundColor: AppColor.errorColor);
+        return token;
+      }
+      if (context != null && token != AppStrings.passwordError) {
+        _credentials.initUserAndToken(user, token);
+        context.pushNamed(AppRouteName.home);
+        SnackBarService.showSnackBar(
+            duration: const Duration(seconds: 1),
+            context: context,
+            message: SuccessMessage.login,
+            backgroundColor: AppColor.successColor);
+        return token;
+      }
+      return token;
+    });
+  }
+
+  Future<String>? logout({BuildContext? context}) async {
+    final result = await _repository.logout();
+
+    return result.fold((failure) {
+      if (context != null) {
+        SnackBarService.showSnackBar(
+            duration: const Duration(seconds: 2),
+            context: context,
+            message: FailureMessage.logout,
+            backgroundColor: AppColor.errorColor);
+      }
+      return "";
+    }, (message) {
+      if (context != null && message != AppStrings.serverLogout) {
+        SnackBarService.showSnackBar(
+            duration: const Duration(seconds: 2),
+            context: context,
+            message: FailureMessage.logout,
+            backgroundColor: AppColor.errorColor);
+        return message;
+      }
+      if (context != null && message == AppStrings.serverLogout) {
+        _credentials.clearUserAndToken();
+        context.pushNamed(AppRouteName.splash);
+        SnackBarService.showSnackBar(
+            duration: const Duration(seconds: 1),
+            context: context,
+            message: SuccessMessage.logout,
+            backgroundColor: AppColor.successColor);
+        return message;
+      }
+      return message;
     });
   }
 }

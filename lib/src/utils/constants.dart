@@ -15,12 +15,16 @@ class AppColor {
   AppColor._();
 
   static const Color primaryColor = Color(0xFF8A39E0);
-  static const Color primaryTextColor = Color(0xFFF0F0FF);
+  static const Color primaryTextColor = Color(0xFFFFFFFF); //Color(0xFFF0F0FF);
   static const Color backgroundColor = Color(0xFFFFFFFE);
   static const Color backgroundTextColor = Color(0xFF291142);
   static const Color backgroundTextSecondaryColor = Color(0xFF214173);
   static const Color secondaryColor = Color(0xFFA3005A);
   static const Color secondaryTextColor = Color(0xFFFFFFFF);
+  static const Color successAccentColor = Colors.greenAccent;
+  static const Color errorAccentColor = Colors.redAccent;
+  static const Color successColor = Colors.green;
+  static const Color errorColor = Colors.red;
 }
 
 class AppText {
@@ -102,6 +106,9 @@ class AppStrings {
   static const passwordTitle = "Vérification";
   static const passwordSubTitle = "Entrez votre code pour vous connecter";
   static const loginInfo = "Vous n'avez pas de compte?";
+  static const passwordError =
+      "Une erreur s'est produite verifier votre numero de téléphone ou votre mot de passe";
+  static const serverLogout = "User have been logged out!";
 }
 
 class NetworkFailureMessage {
@@ -116,7 +123,6 @@ class NetworkFailureMessage {
 }
 
 class LogLabel {
-  static const product = "PRODUCT";
   static const auth = "AUTH";
   static const httpGet = "HTTP/GET";
   static const httpPost = "HTTP/POST";
