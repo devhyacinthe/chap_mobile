@@ -14,8 +14,8 @@ class SharedPrefsController {
   SharedPrefsController({required SharedPrefsRepository repository})
       : _repo = repository;
 
-  Future<String?> getCookie() async {
-    return _repo.getCookie();
+  Future<String?> getToken() async {
+    return _repo.getToken();
   }
 
   FutureVoid setToken({required String token}) async {

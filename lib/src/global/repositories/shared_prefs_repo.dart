@@ -14,7 +14,7 @@ class SharedPrefsRepository {
   final String _currentUserKey = "CURRENT_USER";
   final _name = "SHARED_PREFS_REPO";
 
-  Future<String?> getCookie() async {
+  Future<String?> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(_tokenKey);
 

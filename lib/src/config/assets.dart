@@ -20,7 +20,9 @@ class ImageAssets {
 
   static const welcomeImagePath = "$_base/welcome.png";
 
-  //static const profileImageJpeg = "$_base/profile.jpeg";
+  static const avatar = "$_base/avatar.png";
+  static const user = "$_base/user.png";
+  static const account = "$_base/account.png";
 }
 
 class AnimationAssets {
@@ -43,6 +45,15 @@ class IconAssets {
   static const String phoneNumber = "$_base/smartphone.svg";
   static const String arrow_right = "$_base/arrow-right.svg";
   static const String user = "$_base/user.svg";
+  static const String edit = "$_base/edit.svg";
+  static const String share = "$_base/share-2.svg";
+  static const String contact = "$_base/message-circle-more.svg";
+  static const String barChart = "$_base/bar-chart-2.svg";
+  static const String info = "$_base/info.svg";
+  static const String client = "$_base/contact-2.svg";
+  static const String notification = "$_base/bell.svg";
+  static const String barChart2 = "$_base/bar-chart-3.svg";
+  static const String settings = "$_base/settings.svg";
 }
 
 class PlaceholderAssets {

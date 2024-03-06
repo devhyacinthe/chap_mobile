@@ -28,7 +28,7 @@ class _SplashViewState extends ConsumerState<SplashView> {
         context.pushNamed(AppRouteName.welcome);
       } else {
         /// Route the user to Home screen
-        context.pushNamed(AppRouteName.home);
+        context.pushNamed(AppRouteName.navigation);
       }
     });
   }
@@ -36,7 +36,7 @@ class _SplashViewState extends ConsumerState<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.backgroundColor,
+      backgroundColor: AppColor.backgroundWhiteColor,
       body: Center(
         child: Container(
           height: MediaQuery.of(context).size.height / 3,

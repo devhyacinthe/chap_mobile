@@ -27,8 +27,7 @@ class AuthenticationController {
 
   Future<User>? register({BuildContext? context, User? user}) async {
     final result = await _repository.register(user!);
-    final userNull =
-        User(firstName: "", lastName: "", password: "", phoneNumber: "");
+    final userNull = User.empty();
     return result.fold((failure) {
       if (context != null) {
         SnackBarService.showSnackBar(

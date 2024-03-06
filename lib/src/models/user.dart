@@ -3,6 +3,10 @@ import 'dart:convert';
 class User {
   final String? firstName, lastName, phoneNumber, password;
 
+  factory User.empty() {
+    return User(firstName: "", lastName: "", password: "", phoneNumber: "");
+  }
+
   User(
       {required this.firstName,
       required this.lastName,
@@ -44,6 +48,30 @@ class User {
 
   factory User.fromJson(String source) {
     return User.fromMap(json.decode(source) as Map<String, dynamic>);
+  }
+
+  Map<String, dynamic> toMapResponse() {
+    return <String, dynamic>{
+      'first_name': firstName,
+      'last_name': lastName,
+      'phone_number': phoneNumber,
+      'password': password,
+    };
+  }
+
+  factory User.fromMapResponse(Map<String, dynamic> map) {
+    return User(
+      firstName: map['first_name'] as String?,
+      lastName: map['last_name'] as String?,
+      phoneNumber: map['phone_number'] as String?,
+      password: map['password'] as String?,
+    );
+  }
+
+  String toJsonResponse() => json.encode(toMapResponse());
+
+  factory User.fromJsonResponse(String source) {
+    return User.fromMapResponse(json.decode(source) as Map<String, dynamic>);
   }
 
   @override

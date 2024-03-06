@@ -3,15 +3,16 @@ import 'package:chap_mobile/src/global/widgets/primary_button.dart';
 import 'package:chap_mobile/src/global/widgets/secondary_button.dart';
 import 'package:chap_mobile/src/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 
+// This screen is the one you see when you enter the application if you're not logged in.
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColor.backgroundWhiteColor,
         body: SafeArea(
             child: Container(
                 width: double.infinity,
@@ -24,8 +25,6 @@ class WelcomePage extends StatelessWidget {
                   children: [
                     Column(children: [
                       Text(AppStrings.welcomeTitle, style: AppText.large)
-                          .animate()
-                          .moveY(duration: 500.ms)
                     ]),
                     Container(
                       height: MediaQuery.of(context).size.height / 3,
@@ -34,24 +33,20 @@ class WelcomePage extends StatelessWidget {
                               fit: BoxFit.cover,
                               scale: 3,
                               image: AssetImage(ImageAssets.welcomeImagePath))),
-                    ).animate().moveY(duration: 500.ms),
+                    ),
                     Column(
                       children: [
                         PrimaryButton(
-                                onPressed: () =>
-                                    context.pushNamed(AppRouteName.login),
-                                text: "Connecter")
-                            .animate()
-                            .moveY(duration: 1000.ms),
+                            onPressed: () =>
+                                context.pushNamed(AppRouteName.login),
+                            text: "Connexion"),
                         const SizedBox(
                           height: 20,
                         ),
                         SecondaryButton(
-                                onPressed: () =>
-                                    context.pushNamed(AppRouteName.register),
-                                text: "S'inscrire")
-                            .animate()
-                            .moveY(duration: 1000.ms)
+                            onPressed: () =>
+                                context.pushNamed(AppRouteName.register),
+                            text: "Inscription")
                       ],
                     )
                   ],

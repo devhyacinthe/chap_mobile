@@ -4,29 +4,42 @@ import 'package:chap_mobile/src/features/authentication/widgets/custom_textfield
 import 'package:chap_mobile/src/global/widgets/primary_button.dart';
 import 'package:chap_mobile/src/models/user.dart';
 import 'package:chap_mobile/src/utils/constants.dart';
-import 'package:chap_mobile/src/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
-class RegisterPage extends ConsumerWidget with Validator {
+class RegisterPage extends ConsumerStatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends ConsumerState<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  RegisterPage({super.key});
+  bool isLoading = false;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void initState() {
+    super.initState();
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: AppColor.backgroundColor,
+        backgroundColor: AppColor.backgroundWhiteColor,
         extendBodyBehindAppBar: true,
         appBar: _buildAppBar(context),
         body: SafeArea(
@@ -42,24 +55,25 @@ class RegisterPage extends ConsumerWidget with Validator {
               children: [
                 Column(
                   children: [
-                    Text(AppStrings.registerTitle, style: AppText.large)
-                        .animate()
-                        .moveY(duration: 500.ms),
+                    Text(AppStrings.registerTitle, style: AppText.large),
                     const SizedBox(
                       height: 10,
                     ),
                     Text(AppStrings.registerSubTitle,
-                            textAlign: TextAlign.center,
-                            style: AppText.secondaryTiny)
-                        .animate()
-                        .moveY(duration: 500.ms),
+                        textAlign: TextAlign.center,
+                        style: AppText.secondaryTiny),
                     const SizedBox(
                       height: 30,
                     ),
                     Stack(
                       children: [
                         CustomTextField(
-                          validator: validateName,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'lastname is required';
+                            }
+                            return null;
+                          },
                           maxLength: 50,
                           controller: _lastNameController,
                           isObscureText: false,
@@ -78,12 +92,17 @@ class RegisterPage extends ConsumerWidget with Validator {
                                 width: 1,
                                 color: Colors.black.withOpacity(0.13)))
                       ],
-                    ).animate().moveY(duration: 1000.ms),
+                    ),
                     const SizedBox(height: AppSize.textfieldSpace),
                     Stack(
                       children: [
                         CustomTextField(
-                          validator: validateName,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'firstname is required';
+                            }
+                            return null;
+                          },
                           maxLength: 100,
                           controller: _firstNameController,
                           isObscureText: false,
@@ -102,7 +121,7 @@ class RegisterPage extends ConsumerWidget with Validator {
                                 width: 1,
                                 color: Colors.black.withOpacity(0.13)))
                       ],
-                    ).animate().moveY(duration: 1000.ms),
+                    ),
                     const SizedBox(height: AppSize.textfieldSpace),
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -114,8 +133,14 @@ class RegisterPage extends ConsumerWidget with Validator {
                       child: Stack(
                         children: [
                           InternationalPhoneNumberInput(
+                            //searchBoxDecoration: InputDecoration(),
                             textFieldController: _phoneNumberController,
-                            validator: validatePhoneNumber,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Phone number is required';
+                              }
+                              return null;
+                            },
                             onInputChanged: (PhoneNumber phone) {},
                             formatInput: false,
                             initialValue: PhoneNumber(isoCode: 'TG'),
@@ -145,12 +170,19 @@ class RegisterPage extends ConsumerWidget with Validator {
                                   color: Colors.black.withOpacity(0.13)))
                         ],
                       ),
-                    ).animate().moveY(duration: 1000.ms),
+                    ),
                     const SizedBox(height: 30),
                     Stack(
                       children: [
                         CustomTextField(
-                          validator: validatePassword,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Password is required';
+                            } else if (value.length < 4) {
+                              return 'Password must be at least 4 characters';
+                            }
+                            return null;
+                          },
                           maxLength: 4,
                           controller: _passwordController,
                           isObscureText: true,
@@ -161,11 +193,17 @@ class RegisterPage extends ConsumerWidget with Validator {
                           suffixIcon: const Icon(Icons.password),
                         ),
                       ],
-                    ).animate().moveY(duration: 1000.ms),
+                    ),
                     const SizedBox(height: 30),
-                    PrimaryButton(
+                    isLoading
+                        ? const SpinKitChasingDots(
+                            color: AppColor.primaryColor, size: 25)
+                        : PrimaryButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  isLoading = true;
+                                });
                                 //concat phone number to togolese number
                                 String phoneNumber =
                                     "+228${_phoneNumberController.text}";
@@ -184,12 +222,12 @@ class RegisterPage extends ConsumerWidget with Validator {
                                       user: newUser,
                                     );
 
-                                debugPrint('User created 🚀');
+                                setState(() {
+                                  isLoading = false;
+                                });
                               }
                             },
-                            text: "Valider")
-                        .animate()
-                        .moveY(duration: 1000.ms),
+                            text: "Valider"),
                   ],
                 )
               ],
@@ -197,21 +235,21 @@ class RegisterPage extends ConsumerWidget with Validator {
           ),
         ))));
   }
-}
 
-_buildAppBar(BuildContext context) {
-  return AppBar(
-      backgroundColor: AppColor.backgroundColor,
-      elevation: 0,
-      systemOverlayStyle:
-          const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
-      leading: IconButton(
-        onPressed: () => context.pushNamed(AppRouteName.welcome),
-        icon: SvgPicture.asset(
-          IconAssets.arrow_left,
-          color: AppColor.backgroundTextColor,
-          width: 25,
-          height: 25,
-        ),
-      ));
+  _buildAppBar(BuildContext context) {
+    return AppBar(
+        backgroundColor: AppColor.backgroundWhiteColor,
+        elevation: 0,
+        systemOverlayStyle:
+            const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: SvgPicture.asset(
+            IconAssets.arrow_left,
+            color: AppColor.backgroundTextColor,
+            width: 25,
+            height: 25,
+          ),
+        ));
+  }
 }

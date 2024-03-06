@@ -16,7 +16,7 @@ class InitController {
       _ref.read(currentUserProvider.notifier).update((state) => value);
     });
 
-    await _ref.read(sharedPrefsControllerPovider).getCookie().then((value) {
+    await _ref.read(sharedPrefsControllerPovider).getToken().then((value) {
       _ref.read(authTokenProvider.notifier).update((state) => value);
     });
   }

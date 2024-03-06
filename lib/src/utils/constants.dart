@@ -4,11 +4,18 @@ class AppRouteName {
   AppRouteName._();
 
   static const String welcome = 'welcome';
+  static const String navigation = 'navigation';
   static const String register = 'register';
   static const String login = 'login';
   static const String home = 'home';
   static const String password = 'password';
   static const String splash = 'splash';
+  static const String notification = 'notifications';
+  static const String settings = 'settings';
+  static const String account = 'account';
+  static const String sale = 'sales';
+  static const String product = 'products';
+  static const String client = 'clients';
 }
 
 class AppColor {
@@ -16,7 +23,8 @@ class AppColor {
 
   static const Color primaryColor = Color(0xFF8A39E0);
   static const Color primaryTextColor = Color(0xFFFFFFFF); //Color(0xFFF0F0FF);
-  static const Color backgroundColor = Color(0xFFFFFFFE);
+  static const Color backgroundWhiteColor = Color(0xFFFFFFFF);
+  static const Color backgroundColor = Color(0xFFFCFCFC);
   static const Color backgroundTextColor = Color(0xFF291142);
   static const Color backgroundTextSecondaryColor = Color(0xFF214173);
   static const Color secondaryColor = Color(0xFFA3005A);
@@ -31,58 +39,112 @@ class AppText {
   AppText._();
 
   static TextStyle large = const TextStyle(
-      fontSize: 38,
+      fontSize: 32,
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w600,
       color: AppColor.backgroundTextColor);
 
   static TextStyle primaryMedium = const TextStyle(
-      fontSize: 24,
+      fontSize: 20,
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,
       color: AppColor.backgroundTextSecondaryColor);
 
   static TextStyle secondaryMedium = const TextStyle(
-      fontSize: 24,
+      fontSize: 20,
       fontWeight: FontWeight.w500,
       fontFamily: 'Roboto',
       color: AppColor.backgroundTextColor);
 
   static TextStyle primaryTiny = const TextStyle(
-      fontSize: 18,
+      fontSize: 16,
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,
       color: AppColor.backgroundTextSecondaryColor);
 
   static TextStyle secondaryTiny = const TextStyle(
-      fontSize: 18,
+      fontSize: 16,
       fontWeight: FontWeight.w500,
       fontFamily: 'Roboto',
       color: AppColor.backgroundTextColor);
 
   static TextStyle buttonText = const TextStyle(
-      fontSize: 23,
+      fontSize: 19,
       fontWeight: FontWeight.bold,
       fontFamily: 'Roboto',
       color: AppColor.primaryTextColor);
 
   static TextStyle buttonText2 = const TextStyle(
-      fontSize: 23,
+      fontSize: 19,
       fontWeight: FontWeight.bold,
       fontFamily: 'Roboto',
       color: AppColor.backgroundTextColor);
 
   static TextStyle primaryMiny = const TextStyle(
-      fontSize: 16,
+      fontSize: 14,
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,
       color: AppColor.backgroundTextSecondaryColor);
 
   static TextStyle secondaryMiny = const TextStyle(
-      fontSize: 16,
+      fontSize: 14,
       fontWeight: FontWeight.w500,
       fontFamily: 'Roboto',
       color: AppColor.backgroundTextColor);
+
+  static TextStyle secondaryMinyTextButton = const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Roboto',
+      color: AppColor.primaryColor);
+
+  static TextStyle appBarTitle = const TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Roboto',
+      color: AppColor.backgroundTextColor);
+
+  static TextStyle account = const TextStyle(
+      fontSize: 19,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Roboto',
+      color: AppColor.backgroundTextColor);
+
+  static TextStyle appBarSubTitle = const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      fontFamily: 'Roboto',
+      color: AppColor.backgroundTextSecondaryColor);
+
+  static TextStyle bottomLabel = const TextStyle(
+      fontSize: 15,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Roboto',
+      color: AppColor.backgroundTextColor);
+
+  static TextStyle bottomLabelActive = const TextStyle(
+      fontSize: 15,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Roboto',
+      color: AppColor.primaryColor);
+
+  static TextStyle tileSetting = const TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w300,
+      fontFamily: 'Roboto',
+      color: AppColor.backgroundTextColor);
+
+  static TextStyle cgu = const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      fontFamily: 'Roboto',
+      color: AppColor.primaryColor);
+
+  static TextStyle version = const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      fontFamily: 'Roboto',
+      color: AppColor.backgroundTextSecondaryColor);
 }
 
 class AppSize {
@@ -90,6 +152,8 @@ class AppSize {
 
   static const EdgeInsetsGeometry paddingPage =
       EdgeInsets.symmetric(horizontal: 30, vertical: 50);
+  static const EdgeInsetsGeometry paddingSettingPage =
+      EdgeInsets.symmetric(horizontal: 15, vertical: 20);
 
   static const double textfieldSpace = 15;
 }
@@ -109,6 +173,16 @@ class AppStrings {
   static const passwordError =
       "Une erreur s'est produite verifier votre numero de téléphone ou votre mot de passe";
   static const serverLogout = "User have been logged out!";
+
+  static const String cdu = "Conditions générales d'utilisation";
+  static const String contact = "Découvrir notre entreprise et contactez-nous";
+
+  static const String version = "0.1.0";
+  static const String logout = "Se déconnecter";
+  static const String accountSettings = "Paramètres du compte";
+  static const String help = "Contacter le support";
+  static const String aPropos = "A propos";
+  static const String share = "Partager Chap";
 }
 
 class NetworkFailureMessage {

@@ -39,6 +39,7 @@ class NetworkRepository {
     if (AppConfig.logHttp) {
       log('REQUEST TO : $url', name: LogLabel.httpGet);
       log('requireAuth : $requireAuth', name: LogLabel.httpGet);
+      log("$requestHeaders['Authorization']");
     }
     try {
       final response = await get(Uri.parse(url), headers: requestHeaders);

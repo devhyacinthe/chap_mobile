@@ -15,8 +15,8 @@ class PrimaryButton extends StatelessWidget {
         onPressed: onPressed,
         color: AppColor.primaryColor,
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        height: 60,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        height: 50,
         child: Text(text, style: AppText.buttonText));
   }
 }
