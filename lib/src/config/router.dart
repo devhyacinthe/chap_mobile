@@ -186,26 +186,29 @@ GoRouter router = GoRouter(routes: [
           },
           child: const SettingsPage(),
         );
-      }),
-  GoRoute(
-      name: AppRouteName.account,
-      path: '/account',
-      pageBuilder: (context, state) {
-        return CustomTransitionPage(
-          transitionDuration: const Duration(milliseconds: 300),
-          reverseTransitionDuration: const Duration(milliseconds: 300),
-          key: state.pageKey,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position:
-                  Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero)
-                      .animate(animation),
-              child: child,
-            );
-          },
-          child: const AccountPage(),
-        );
-      }),
+      },
+      routes: [
+        GoRoute(
+            name: AppRouteName.account,
+            path: 'account',
+            pageBuilder: (context, state) {
+              return CustomTransitionPage(
+                transitionDuration: const Duration(milliseconds: 300),
+                reverseTransitionDuration: const Duration(milliseconds: 300),
+                key: state.pageKey,
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                            begin: const Offset(1, 0), end: Offset.zero)
+                        .animate(animation),
+                    child: child,
+                  );
+                },
+                child: const AccountPage(),
+              );
+            }),
+      ]),
   GoRoute(
       name: AppRouteName.sale,
       path: '/sales',

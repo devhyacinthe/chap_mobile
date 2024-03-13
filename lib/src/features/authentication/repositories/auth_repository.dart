@@ -31,8 +31,7 @@ class AuthenticationRepository {
     }, (Response response) {
       try {
         if (response.statusCode >= 400) {
-          User userNull =
-              User(firstName: "", lastName: "", password: "", phoneNumber: "");
+          User userNull = User.empty();
 
           return Right(userNull);
         }

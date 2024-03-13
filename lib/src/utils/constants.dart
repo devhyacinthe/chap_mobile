@@ -69,16 +69,22 @@ class AppText {
       color: AppColor.backgroundTextColor);
 
   static TextStyle buttonText = const TextStyle(
-      fontSize: 19,
+      fontSize: 17,
       fontWeight: FontWeight.bold,
       fontFamily: 'Roboto',
       color: AppColor.primaryTextColor);
 
-  static TextStyle buttonText2 = const TextStyle(
-      fontSize: 19,
+  static TextStyle enabledButtonText = const TextStyle(
+      fontSize: 17,
       fontWeight: FontWeight.bold,
       fontFamily: 'Roboto',
-      color: AppColor.backgroundTextColor);
+      color: AppColor.backgroundTextSecondaryColor);
+
+  static TextStyle buttonText2 = const TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Roboto',
+      color: AppColor.primaryColor);
 
   static TextStyle primaryMiny = const TextStyle(
       fontSize: 14,
@@ -104,6 +110,12 @@ class AppText {
       fontFamily: 'Roboto',
       color: AppColor.backgroundTextColor);
 
+  static TextStyle bottomPhoneNumber = const TextStyle(
+      fontSize: 22,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Roboto',
+      color: AppColor.backgroundTextColor);
+
   static TextStyle account = const TextStyle(
       fontSize: 19,
       fontWeight: FontWeight.bold,
@@ -115,6 +127,12 @@ class AppText {
       fontWeight: FontWeight.w300,
       fontFamily: 'Roboto',
       color: AppColor.backgroundTextSecondaryColor);
+
+  static TextStyle appBarSubTitleBold = const TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Roboto',
+      color: AppColor.backgroundTextColor);
 
   static TextStyle bottomLabel = const TextStyle(
       fontSize: 15,
@@ -133,6 +151,18 @@ class AppText {
       fontWeight: FontWeight.w300,
       fontFamily: 'Roboto',
       color: AppColor.backgroundTextColor);
+
+  static TextStyle tileSettingFilled = const TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w200,
+      fontFamily: 'Roboto',
+      color: AppColor.backgroundTextSecondaryColor);
+
+  static TextStyle tileSettingFilled2 = const TextStyle(
+      fontSize: 15,
+      fontWeight: FontWeight.w300,
+      fontFamily: 'Roboto',
+      color: AppColor.backgroundTextSecondaryColor);
 
   static TextStyle cgu = const TextStyle(
       fontSize: 14,
@@ -172,6 +202,7 @@ class AppStrings {
   static const loginInfo = "Vous n'avez pas de compte?";
   static const passwordError =
       "Une erreur s'est produite verifier votre numero de téléphone ou votre mot de passe";
+  static const updatedProfileError = "Une erreur s'est produite";
   static const serverLogout = "User have been logged out!";
 
   static const String cdu = "Conditions générales d'utilisation";
@@ -183,6 +214,15 @@ class AppStrings {
   static const String help = "Contacter le support";
   static const String aPropos = "A propos";
   static const String share = "Partager Chap";
+  static const String accountPhoneNumber = "Numéro de tel.";
+  static const String accountCountry = "Pays";
+  static const String accountFirstName = "Prenom*";
+  static const String accountLastName = "Nom de famille";
+  static const String accountEmail = "Email";
+  static const String accountGender = "Sexe";
+  static const String accountBirthDay = "Date d'anniversaire";
+  static const String phoneNumberInfo =
+      "Il n'est pas possible de modifier votre numéro de téléphone directement. Si vous rencontrez des problèmes ou si vous souhaitez procéder à un changement, veuillez contacter le support.";
 }
 
 class NetworkFailureMessage {

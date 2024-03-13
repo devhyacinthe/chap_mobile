@@ -1,5 +1,5 @@
 import 'package:chap_mobile/src/config/assets.dart';
-import 'package:chap_mobile/src/models/user.dart';
+import 'package:chap_mobile/src/features/authentication/controllers/auth_controller.dart';
 import 'package:chap_mobile/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +17,6 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  User user = User.empty();
   DateFormat dateFormat = DateFormat();
 
   @override
@@ -35,6 +34,9 @@ class _HomePageState extends ConsumerState<HomePage> {
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColor.backgroundWhiteColor,
       extendBodyBehindAppBar: true,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+      ),
       appBar: AppBar(
         leadingWidth: 80,
         backgroundColor: AppColor.backgroundWhiteColor,
@@ -47,9 +49,11 @@ class _HomePageState extends ConsumerState<HomePage> {
             child: CircleAvatar(
               backgroundColor: AppColor.backgroundWhiteColor,
               radius: 25,
-              child: Image.asset(
-                ImageAssets.account,
+              child: SvgPicture.asset(
+                IconAssets.user,
                 color: AppColor.backgroundTextColor,
+                width: 50,
+                height: 50,
               ),
             ),
           ),

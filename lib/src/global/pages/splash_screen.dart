@@ -15,9 +15,7 @@ class SplashView extends ConsumerStatefulWidget {
 }
 
 class _SplashViewState extends ConsumerState<SplashView> {
-  @override
-  void initState() {
-    super.initState();
+  _checkIfUserIsConnected() {
     ref.read(initControllerProvider).getUserAndToken().then((value) {
       final user = ref.read(currentUserProvider);
       final token = ref.read(authTokenProvider);
@@ -31,6 +29,12 @@ class _SplashViewState extends ConsumerState<SplashView> {
         context.pushNamed(AppRouteName.navigation);
       }
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIfUserIsConnected();
   }
 
   @override

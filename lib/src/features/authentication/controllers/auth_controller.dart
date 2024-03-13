@@ -82,7 +82,7 @@ class AuthenticationController {
       }
       if (context != null && token != AppStrings.passwordError) {
         _credentials.initUserAndToken(user, token);
-        context.pushNamed(AppRouteName.home);
+        context.pushNamed(AppRouteName.navigation);
         SnackBarService.showSnackBar(
             duration: const Duration(seconds: 1),
             context: context,

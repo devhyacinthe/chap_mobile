@@ -2,8 +2,9 @@ import 'package:chap_mobile/src/config/assets.dart';
 import 'package:chap_mobile/src/features/authentication/controllers/auth_controller.dart';
 import 'package:chap_mobile/src/features/settings/controllers/settings_controller.dart';
 import 'package:chap_mobile/src/global/controllers/init_controller.dart';
+import 'package:chap_mobile/src/global/providers/account_common_provider.dart';
 import 'package:chap_mobile/src/global/providers/common_providers.dart';
-import 'package:chap_mobile/src/models/user.dart';
+import 'package:chap_mobile/src/models/user_response.dart';
 import 'package:chap_mobile/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,14 +21,10 @@ class SettingsPage extends ConsumerStatefulWidget {
 }
 
 class _SettingsPageState extends ConsumerState<SettingsPage> {
-  User user = User.empty();
+  UserResponse user = UserResponse.empty();
   bool isLoading = false;
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      isLoading = true;
-    });
+
+  _initUserCredentials() {
     ref.read(initControllerProvider).getUserAndToken().then((value) {
       final userInfo = ref.read(currentUserProvider);
       //final token = ref.read(authTokenProvider);
@@ -44,8 +41,28 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     });
   }
 
+  _clearUserProviderAfterLogout() {
+    ref.read(accountFirstNameProvider.notifier).state = "";
+    ref.read(accountLastNameProvider.notifier).state = "";
+    ref.read(accountEmailProvider.notifier).state = "";
+    ref.read(accountGenderProvider.notifier).state = "";
+    ref.read(accountBirthdayProvider.notifier).state = "";
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      isLoading = true;
+    });
+    _initUserCredentials();
+  }
+
   @override
   Widget build(BuildContext context) {
+    var firstNameProvider = ref.watch(accountFirstNameProvider);
+    var lastNameProvider = ref.watch(accountLastNameProvider);
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColor.backgroundWhiteColor,
@@ -69,9 +86,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                             child: CircleAvatar(
                               backgroundColor: AppColor.backgroundWhiteColor,
                               radius: 48,
-                              child: Image.asset(
-                                ImageAssets.account,
+                              child: SvgPicture.asset(
+                                IconAssets.user,
                                 color: AppColor.backgroundTextColor,
+                                width: 75,
+                                height: 75,
                               ),
                             ),
                           ),
@@ -90,16 +109,62 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                               : Expanded(
                                   child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
                                     Container(
-                                      margin: const EdgeInsets.only(left: 25),
-                                      child: Text(
-                                          "${user.lastName!}     ${user.firstName!}",
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.left,
-                                          maxLines: 2,
-                                          style: AppText.account),
-                                    ),
+                                        margin: const EdgeInsets.only(left: 25),
+                                        child: Row(
+                                          children: [
+                                            firstNameProvider.toString() != ""
+                                                ? Text(firstNameProvider,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.left,
+                                                    maxLines: 2,
+                                                    style: AppText.account)
+                                                : Text("${user.firstName}",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.left,
+                                                    maxLines: 2,
+                                                    style: AppText.account),
+                                            const SizedBox(
+                                              width: 7,
+                                            ),
+                                            lastNameProvider.toString() != ""
+                                                ? Text(
+                                                    "${lastNameProvider[0]}.",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.left,
+                                                    maxLines: 2,
+                                                    style: AppText.account)
+                                                : Text("${user.lastName![0]}.",
+                                                    softWrap: true,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.left,
+                                                    maxLines: 1,
+                                                    style: AppText.account),
+                                          ],
+                                        )),
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                          left: 20, top: 5),
+                                      height: 35,
+                                      width: 70,
+                                      decoration: BoxDecoration(
+                                          color: AppColor.primaryColor
+                                              .withOpacity(.2),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(30))),
+                                      child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text("${user.rating}",
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.center,
+                                              style: AppText.account)),
+                                    )
                                   ],
                                 )),
                           Column(
@@ -187,6 +252,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                             size: 25),
                         tileColor: AppColor.backgroundWhiteColor,
                       ),
+                      _buildDivider(),
                     ],
                   )),
               Container(
@@ -195,6 +261,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   children: [
                     GestureDetector(
                       onTap: () {
+                        _clearUserProviderAfterLogout();
                         ref
                             .read(authenticationControllerProvider)
                             .logout(context: context);

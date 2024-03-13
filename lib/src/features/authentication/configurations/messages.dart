@@ -1,6 +1,6 @@
 class FailureMessage {
   static const jsonParseFailed = "JSON parsing failed";
-  static const register = "Failed to register user! ";
+  static const register = "Failed to register user!";
   static const verifyPhoneNumber = "Phone number already exist! ";
   static const login =
       "Failed to login user, verify your phone number and password";

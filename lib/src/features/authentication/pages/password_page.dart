@@ -88,15 +88,13 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                     setState(() {
                                       isLoading = true;
                                     });
-                                    //concat phone number to togolese number
-                                    String number =
-                                        "+228${widget.phoneNumber!}";
 
                                     User user = User(
-                                        firstName: "",
-                                        lastName: "",
-                                        password: _passwordController.text,
-                                        phoneNumber: number);
+                                      firstName: "",
+                                      lastName: "",
+                                      password: _passwordController.text,
+                                      phoneNumber: widget.phoneNumber!,
+                                    );
 
                                     ref
                                         .read(authenticationControllerProvider)

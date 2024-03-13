@@ -19,7 +19,7 @@ class CustomTextField extends StatelessWidget {
       required this.controller,
       required this.keyboardType,
       required this.isObscureText,
-      required this.obscuringCharacter,
+      this.obscuringCharacter,
       required this.suffixIcon,
       required this.prefixIcon,
       required this.hintText})
@@ -35,7 +35,8 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       obscureText: isObscureText,
-      obscuringCharacter: obscuringCharacter!,
+      obscuringCharacter:
+          obscuringCharacter == null ? '*' : obscuringCharacter!,
       style: const TextStyle(
           fontFamily: 'Roboto',
           color: AppColor.backgroundTextColor,

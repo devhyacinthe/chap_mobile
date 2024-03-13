@@ -23,6 +23,7 @@ class ImageAssets {
   static const avatar = "$_base/avatar.png";
   static const user = "$_base/user.png";
   static const account = "$_base/account.png";
+  static const flag = "$_base/togo_flag.png";
 }
 
 class AnimationAssets {
@@ -54,6 +55,9 @@ class IconAssets {
   static const String notification = "$_base/bell.svg";
   static const String barChart2 = "$_base/bar-chart-3.svg";
   static const String settings = "$_base/settings.svg";
+  static const String calendar = "$_base/calendar.svg";
+  static const String mail = "$_base/mail.svg";
+  static const String earth = "$_base/earth.svg";
 }
 
 class PlaceholderAssets {

@@ -74,12 +74,11 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                             }
                             return null;
                           },
-                          maxLength: 50,
+                          maxLength: 15,
                           controller: _lastNameController,
                           isObscureText: false,
                           hintText: "Nom",
                           keyboardType: TextInputType.name,
-                          obscuringCharacter: '*',
                           prefixIcon: const Icon(Icons.person_2_outlined),
                           suffixIcon: const Icon(Icons.abc),
                         ),
@@ -103,12 +102,11 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                             }
                             return null;
                           },
-                          maxLength: 100,
+                          maxLength: 15,
                           controller: _firstNameController,
                           isObscureText: false,
                           hintText: "Prenom(s)",
                           keyboardType: TextInputType.name,
-                          obscuringCharacter: '*',
                           prefixIcon: const Icon(Icons.person_2_outlined),
                           suffixIcon: const Icon(Icons.abc),
                         ),
@@ -133,7 +131,27 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                       child: Stack(
                         children: [
                           InternationalPhoneNumberInput(
-                            //searchBoxDecoration: InputDecoration(),
+                            searchBoxDecoration: InputDecoration(
+                              hintText: 'Rechercher votre pays',
+                              contentPadding:
+                                  const EdgeInsets.only(bottom: 10, left: 15),
+                              filled: true,
+                              enabled: true,
+                              fillColor: AppColor.backgroundColor,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                    color: AppColor.primaryColor, width: 1.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                    color: AppColor.primaryColor, width: 1.0),
+                              ),
+                            ),
                             textFieldController: _phoneNumberController,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -141,6 +159,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                               }
                               return null;
                             },
+                            countries: const ['TG', 'FR', 'BF', 'CI', 'SN'],
                             onInputChanged: (PhoneNumber phone) {},
                             formatInput: false,
                             initialValue: PhoneNumber(isoCode: 'TG'),
@@ -204,14 +223,11 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                //concat phone number to togolese number
-                                String phoneNumber =
-                                    "+228${_phoneNumberController.text}";
 
                                 final newUser = User(
                                   firstName: _firstNameController.text,
                                   lastName: _lastNameController.text,
-                                  phoneNumber: phoneNumber,
+                                  phoneNumber: _phoneNumberController.text,
                                   password: _passwordController.text,
                                 );
 

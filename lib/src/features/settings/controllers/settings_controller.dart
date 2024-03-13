@@ -2,6 +2,7 @@ import 'package:chap_mobile/src/features/settings/configurations/messages.dart';
 import 'package:chap_mobile/src/features/settings/repositories/settings_repository.dart';
 import 'package:chap_mobile/src/global/controllers/init_controller.dart';
 import 'package:chap_mobile/src/models/user.dart';
+import 'package:chap_mobile/src/models/user_response.dart';
 import 'package:chap_mobile/src/utils/constants.dart';
 import 'package:chap_mobile/src/utils/snackbar.dart';
 import 'package:flutter/widgets.dart';
@@ -25,9 +26,10 @@ class SettingsController {
       : _repository = repository,
         _credentials = credentials;
 
-  Future<User> userProfile({BuildContext? context, String? phoneNumber}) async {
+  Future<UserResponse> userProfile(
+      {BuildContext? context, String? phoneNumber}) async {
     final result = await _repository.userProfile(phoneNumber!);
-    final userNull = User.empty();
+    final userNull = UserResponse.empty();
 
     return result.fold((failure) {
       if (context != null) {
@@ -43,6 +45,39 @@ class SettingsController {
         return user;
       }
       return user;
+    });
+  }
+
+  Future<String> updatedUserProfile(
+      {BuildContext? context,
+      String? phoneNumber,
+      Map<String, dynamic>? updatedUserMap}) async {
+    final result =
+        await _repository.updatedUserProfile(phoneNumber!, updatedUserMap!);
+
+    return result.fold((failure) {
+      if (context != null) {
+        SnackBarService.showSnackBar(
+            duration: const Duration(seconds: 2),
+            context: context,
+            message: FailureMessage.updatedUserProfile,
+            backgroundColor: AppColor.errorColor);
+      }
+      return "";
+    }, (message) {
+      if (context != null && message == AppStrings.updatedProfileError) {
+        SnackBarService.showSnackBar(
+            duration: const Duration(seconds: 2),
+            context: context,
+            message: FailureMessage.updatedUserProfile,
+            backgroundColor: AppColor.errorColor);
+        return message;
+      }
+      if (context != null && message != AppStrings.updatedProfileError) {
+        context.pop();
+        return message;
+      }
+      return message;
     });
   }
 }

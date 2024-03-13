@@ -66,6 +66,29 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             Form(
                               key: _formKey,
                               child: InternationalPhoneNumberInput(
+                                searchBoxDecoration: InputDecoration(
+                                  hintText: 'Rechercher votre pays',
+                                  contentPadding: const EdgeInsets.only(
+                                      bottom: 10, left: 15),
+                                  filled: true,
+                                  enabled: true,
+                                  fillColor: AppColor.backgroundColor,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(
+                                        color: AppColor.primaryColor,
+                                        width: 1.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(
+                                        color: AppColor.primaryColor,
+                                        width: 1.0),
+                                  ),
+                                ),
                                 formatInput: false,
                                 textFieldController: _phoneNumberController,
                                 validator: (value) {
@@ -74,6 +97,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                   }
                                   return null;
                                 },
+                                countries: const ['TG', 'FR', 'BF', 'CI', 'SN'],
                                 onInputChanged: (PhoneNumber phone) {},
                                 initialValue: PhoneNumber(isoCode: 'TG'),
                                 maxLength: 8,

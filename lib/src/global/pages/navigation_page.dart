@@ -35,9 +35,6 @@ class _NavigationPageState extends ConsumerState<NavigationPage> {
 
     return Scaffold(
       body: _screens[index],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-      ),
       bottomNavigationBar: BottomNavigationBar(
           onTap: (currentIndex) => ref
               .read(indexNavigationBarProvider.notifier)
